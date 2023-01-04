@@ -11,18 +11,20 @@ class AdaptiveTextButton extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Platform.isIOS ?
-    CupertinoButton(
-        onPressed: handler,
-        child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold))
-    ) :
-    TextButton(
-        style: TextButton.styleFrom(
-            foregroundColor: Theme.of(context).primaryColor
-        ),
-        onPressed: handler,
-        child: Text(text, style: const TextStyle(fontWeight: FontWeight.bold,),
-        )
-    );
+    return Platform.isIOS
+        ? CupertinoButton(
+            onPressed: handler,
+            child:
+                Text(text, style: const TextStyle(fontWeight: FontWeight.bold)))
+        : TextButton(
+            style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).primaryColor),
+            onPressed: handler,
+            child: Text(
+              text,
+              style: const TextStyle(
+                fontWeight: FontWeight.bold,
+              ),
+            ));
   }
 }

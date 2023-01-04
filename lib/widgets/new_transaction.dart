@@ -21,39 +21,35 @@ class _NewTransactionState extends State<NewTransaction> {
   DateTime? _selectedDate;
 
   void _submitData() {
-    if(_amountController.text.isEmpty) {
+    if (_amountController.text.isEmpty) {
       return;
     }
 
     final enteredTitle = _titleController.text;
     final enteredAmount = double.parse(_amountController.text);
 
-    if(enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
+    if (enteredTitle.isEmpty || enteredAmount <= 0 || _selectedDate == null) {
       return;
     }
 
-    widget.addNewTransaction(
-        enteredTitle,
-        enteredAmount,
-        _selectedDate
-    );
+    widget.addNewTransaction(enteredTitle, enteredAmount, _selectedDate);
 
     Navigator.of(context).pop();
   }
 
   void _presentDatePicker() {
     showDatePicker(
-        context: context,
-        initialDate: DateTime.now(),
-        firstDate: DateTime(2022),
-        lastDate: DateTime(2023)
-    ).then((pickedDate) {
-        if(pickedDate == null) {
-          return;
-        }
-        setState(() {
-          _selectedDate = pickedDate;
-        });
+            context: context,
+            initialDate: DateTime.now(),
+            firstDate: DateTime(2023),
+            lastDate: DateTime(2024))
+        .then((pickedDate) {
+      if (pickedDate == null) {
+        return;
+      }
+      setState(() {
+        _selectedDate = pickedDate;
+      });
     });
   }
 
@@ -64,10 +60,10 @@ class _NewTransactionState extends State<NewTransaction> {
         elevation: 5,
         child: Container(
             padding: EdgeInsets.only(
-                top: 10,
-                left: 10,
-                right: 10,
-                bottom: MediaQuery.of(context).viewInsets.bottom + 10,
+              top: 10,
+              left: 10,
+              right: 10,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 10,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.end,
@@ -82,14 +78,14 @@ class _NewTransactionState extends State<NewTransaction> {
                   keyboardType: TextInputType.number,
                   onSubmitted: (_) => _submitData,
                 ),
-                Row(children: <Widget>[
-                  Text(
-                      _selectedDate == null ?
-                      'No Date Chosen!' :
-                      'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}'
-                  ),
-                  AdaptiveTextButton('Choose Date', _presentDatePicker),
-                ],),
+                Row(
+                  children: <Widget>[
+                    Text(_selectedDate == null
+                        ? 'No Date Chosen!'
+                        : 'Picked Date: ${DateFormat.yMd().format(_selectedDate!)}'),
+                    AdaptiveTextButton('Choose Date', _presentDatePicker),
+                  ],
+                ),
                 TextButton(
                   onPressed: _submitData,
                   style: TextButton.styleFrom(backgroundColor: Colors.purple),
@@ -99,10 +95,8 @@ class _NewTransactionState extends State<NewTransaction> {
                   ),
                 )
               ],
-            )
-        ),
+            )),
       ),
     );
   }
 }
-
